@@ -1,4 +1,4 @@
 # C-multithreading
-Here I only record my study life, and I encountered the trouble.
+Here records my study life, and some difficulties which I suffered from the process of my study.
 +1 @@
-Just learned how to use git. The Unfortunately, only learned the most basic operation, while learning with it.fighting...
+I have studied the basic operation of the git now . So,for me, i just use it while learning ....fighting(ง •̀_•́)ง...
