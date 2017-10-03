@@ -8,3 +8,5 @@ I use the c++ Multithreading Cookbook to stduy.
 
 Okay,In the 3days,I realized that I could not continue through this book to study.
 I'll change a way of tinking to learn it.
+Maybe try to learn API is a good chooice.
+I plan to learn API tomorrow.
