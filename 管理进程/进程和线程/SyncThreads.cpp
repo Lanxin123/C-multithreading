@@ -1,4 +1,4 @@
-//异步加载
+//同步加载
 
 #include "CThread.h"
 #include <windowsx.h>
@@ -19,13 +19,13 @@ protected:
 
 void Thread::Run(LPVOID lpParameter)
 {
-	// 随机种子生成器
+	// reseed random generator
 	srand((unsigned)time(NULL));
 
 	HWND hWnd = (HWND)GetUserData();
 	RECT rect;
 
-	// 获得窗口的尺寸
+	// get window抯 dimensions
 	BOOL bError = GetClientRect(hWnd, &rect);
 	if (!bError)
 	{
@@ -35,40 +35,40 @@ void Thread::Run(LPVOID lpParameter)
 	int iClientX = rect.right - rect.left;
 	int iClientY = rect.bottom - rect.top;
 
-	//如果窗口没有尺寸，不绘图
+	//do not draw if the window does not have any dimensions
 	if ((!iClientX) || (!iClientY))
 	{
 		return;
 	}
 
-	// 获得设备上下文以绘图
+	// get device context for drawing
 	HDC hDC = GetDC(hWnd);
 
 	if (hDC)
-	{   // 绘制10个随机图形
+	{   // draw the ten random figures
 		for (int iCount = 0; iCount < WINDOWS_NUMBER; iCount++)
 		{
-			// 设置坐标
+			// set coordinates
 			int iStartX = (int)(rand() % iClientX);
 			int iStopX = (int)(rand() % iClientX);
 			int iStartY = (int)(rand() % iClientY);
 			int iStopY = (int)(rand() % iClientY);
-			//设置颜色
+			// set the color
 			int iRed = rand() & 255;
 			int iGreen = rand() & 255;
 			int iBlue = rand() & 255;
 
-			// 设置画刷
+			// create a solid brush
 			HANDLE hBrush = CreateSolidBrush(GetNearestColor(hDC, RGB(iRed, iGreen, iBlue)));
 			HANDLE hbrOld = SelectBrush(hDC, hBrush);
 
 			Rectangle(hDC, min(iStartX, iStopX), max(iStartX, iStopX), min(iStartY, iStopY), max(iStartY, iStopY));
 
-			// 删除画刷
+			// delete the brush
 			DeleteBrush(SelectBrush(hDC, hbrOld));
 		}
 
-		// 释放设备上下文
+		// release the Device Context
 		ReleaseDC(hWnd, hDC);
 	}
 
@@ -113,7 +113,7 @@ int WINAPI _tWinMain(HINSTANCE hThis, HINSTANCE hPrev, LPTSTR szCommandLine, int
 	Thread threads[THREADS_NUMBER];
 	for (int iIndex = 0; iIndex < THREADS_NUMBER; iIndex++)
 	{
-		threads[iIndex].Create(NULL, STATE_ASYNC | STATE_CONTINUOUS);
+		threads[iIndex].Create(NULL, STATE_SYNC | STATE_CONTINUOUS);
 		threads[iIndex].SetUserData(hRects[iIndex]);
 	}
 
